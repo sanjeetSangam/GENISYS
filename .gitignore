@@ -6,6 +6,7 @@
 /server/node_modules
 /server/.env
 /client/.env
+/client/dist
 /.pnp
 .pnp.js
 
@@ -25,3 +26,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local Netlify folder
+.netlify
