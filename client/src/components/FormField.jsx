@@ -55,7 +55,6 @@ const FormField = ({ setGeneratedImage, setGeneratingImage, setPostingImage }) =
 		try {
 			const paramJSON = { prompt: formData.prompt };
 			const { data } = await axios.post(generateImage, paramJSON);
-			console.log(data);
 			const generated = `data:image/jpeg;base64,${data.photo}`;
 			setFormData({
 				...formData,

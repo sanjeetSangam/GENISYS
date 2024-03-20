@@ -53,7 +53,6 @@ const Home = () => {
 			const { data } = await axios.get(getPosts, {
 				params: params,
 			});
-			console.log("data", data);
 			return data;
 		} catch (error) {
 			console.log(error.message);
