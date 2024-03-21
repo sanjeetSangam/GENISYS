@@ -34,7 +34,7 @@ a {
 }
 
 main {
-	height: 93%;
+	height: calc(100vh - 60px);
 }
 
 .loader__class {

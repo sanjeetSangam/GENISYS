@@ -38,6 +38,7 @@ const Input = styled.input`
 	font-size: 14px;
 	padding: 5px;
 	background: transparent;
+	resize: vertical;
 	color: ${({ theme }) => theme.text__primary};
 	&:focus {
 		outline: none;
@@ -66,6 +67,7 @@ const TextInput = ({
 			<OutlinedInput>
 				<Input
 					as={textArea ? "textarea" : "input"}
+					
 					name={name}
 					rows={rows}
 					columns={columns}

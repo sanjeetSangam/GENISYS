@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Button = styled.button`
 	border-radius: 10px;
 	border: none;
-	color: white;
+	color: ${({ theme }) => theme.navbar};
 	font-size: 14px;
 	cursor: ${({ isloading, isdisabled }) => (isloading || isdisabled ? "not-allowed" : "pointer")};
 	transition: all 0.3s ease;

@@ -1,19 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { FormField } from "../components";
 import { preview } from "../assets";
 import Loader from "react-js-loader";
+import { BasicContext } from "../context";
 
 const CreatePost = () => {
 	const [generatedImage, setGeneratedImage] = useState(preview);
 	const [generatingImage, setGeneratingImage] = useState(false);
 	const [postingImage, setPostingImage] = useState(false);
+	const { themeMode } = useContext(BasicContext);
 
 	return (
 		<Container>
 			{postingImage && (
 				<div className="loading">
-					<Loader type="bubble-top" title={"Posting to Community . . ."} size={50} />
+					<Loader
+						type="bubble-top"
+						bgColor={themeMode.primary}
+						color={themeMode.primary}
+						title={"Posting to Community . . ."}
+						size={50}
+					/>
 				</div>
 			)}
 			<div className="generate__image-form">
@@ -26,7 +34,13 @@ const CreatePost = () => {
 			<div className="generated__image-preview">
 				{generatingImage && (
 					<div className="loader__class">
-						<Loader type="bubble-spin" title={"Generating..."} size={100} />
+						<Loader
+							type="bubble-spin"
+							bgColor={themeMode.primary}
+							color={themeMode.primary}
+							title={"Generating..."}
+							size={100}
+						/>
 					</div>
 				)}
 				<img src={generatedImage} alt="" />
@@ -60,7 +74,7 @@ const Container = styled.div`
 		position: relative;
 
 		img {
-			border: 1px dashed yellow;
+			border: 1px dashed ${({ theme }) => theme.generatedImageBorder};
 			width: 400px;
 			border-radius: 0.8rem;
 			padding: 10px;

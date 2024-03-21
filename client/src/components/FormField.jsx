@@ -109,7 +109,7 @@ const FormField = ({ setGeneratedImage, setGeneratingImage, setPostingImage }) =
 					</div>
 					<div className="prompt">
 						<label>
-							Image Prompt <div onClick={generateRandomPrompts}>Surpise Me</div>{" "}
+							Image Prompt <div style={{color : "white"}} onClick={generateRandomPrompts}>Surpise Me</div>{" "}
 						</label>
 						<TextInput
 							name="prompt"

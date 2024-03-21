@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ImageCard, SearchBar } from "../components";
 import styled from "styled-components";
 import axios from "axios";
-import { createPost, getPosts } from "../routes/routes";
+import { getPosts } from "../routes/routes";
 import Loader from "react-js-loader";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { BasicContext } from "../context";
 // import { inserrecords } from "../utils/insertPosts";
 
-const LIMIT = 20;
+const LIMIT = 25;
 
 const RenderCards = ({ data, title, searchTitle }) => {
 	if (data?.length > 0) {
@@ -33,8 +34,10 @@ const Home = () => {
 	const [loading, setLoading] = useState(false);
 	const [posts, setPosts] = useState([]);
 	const [searchText, setSearchText] = useState("");
+	const [initialLoadingMsg, setInitialLoadingMsg] = useState("Please wait...");
 	const [totalImages, setTotalImages] = useState(0);
 	const [activePage, setActivePage] = useState(1);
+	const { themeMode } = useContext(BasicContext);
 
 	const getImagesData = async (isLazy) => {
 		if (!isLazy) {
@@ -78,6 +81,13 @@ const Home = () => {
 	useEffect(() => {
 		// inserrecords();
 		fetchData();
+		setTimeout(() => {
+			if (loading) {
+				setInitialLoadingMsg(
+					"Server is sleeping, now it will take some time to wake up..."
+				);
+			}
+		}, 5000);
 	}, []);
 
 	useEffect(() => {
@@ -101,7 +111,13 @@ const Home = () => {
 
 			{loading ? (
 				<div className="loader__class">
-					<Loader type="bubble-loop" size={100} />
+					<Loader
+						bgColor={themeMode.primary}
+						color={themeMode.primary}
+						type="bubble-loop"
+						title={initialLoadingMsg}
+						size={100}
+					/>
 				</div>
 			) : (
 				<Wrapper>
@@ -114,7 +130,12 @@ const Home = () => {
 						endMessage={<h2 className="result__end">End of result</h2>}
 						loader={
 							<div className="lazy__loader">
-								<Loader type="bubble-loop" size={30} />
+								<Loader
+									type="bubble-loop"
+									bgColor={themeMode.primary}
+									color={themeMode.primary}
+									size={30}
+								/>
 							</div>
 						}
 						scrollableTarget="scrollableDiv"
@@ -225,35 +246,35 @@ const Wrapper = styled.div`
 `;
 
 const CardsWrapper = styled.div`
-	/* display: grid; */
-	column-width: 33%;
-	-webkit-column-width: 33%;
-	-moz-column-width: 33%;
+	display: grid;
 	gap: 20px;
 	padding: 0 12px;
+	grid-template-columns: repeat(4, 1fr);
 
-	@media (min-width: 1200px) {
-		/* grid-template-columns: repeat(4, 1fr); */
-		column-count: 4;
-		-webkit-column-count: 4;
-		-moz-column-count: 4;
+	img {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		object-fit: cover;
 	}
+
+	@media (min-width: 1401px) {
+		grid-template-columns: repeat(6, 1fr);
+	}
+
+	@media (min-width: 1200px) and (max-width: 1400px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+
 	@media (min-width: 640px) and (max-width: 1199px) {
-		/* grid-template-columns: repeat(3, 1fr); */
-		column-count: 3;
-		-webkit-column-count: 3;
-		-moz-column-count: 3;
+		grid-template-columns: repeat(3, 1fr);
 	}
+
 	@media (max-width: 639px) {
-		/* grid-template-columns: repeat(2, 1fr); */
-		column-count: 2;
-		-webkit-column-count: 2;
-		-moz-column-count: 2;
+		grid-template-columns: repeat(2, 1fr);
 	}
+
 	@media (max-width: 430px) {
-		/* grid-template-columns: repeat(2, 1fr); */
-		column-count: 1;
-		-webkit-column-count: 1;
-		-moz-column-count: 1;
+		grid-template-columns: repeat(1, 1fr);
 	}
 `;

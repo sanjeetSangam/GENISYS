@@ -44,19 +44,27 @@ const Card = styled.div`
 	/* cursor: pointer; */
 	transition: all 0.3s ease;
 	margin-bottom: 12px;
+	color: ${({ theme }) => theme.cardsTitleColor};
 	&:hover {
-		/* scale: 1.01; */
+		scale: 1.01;
 	}
-	/* &:nth-child(7n + 1) {
+	&:nth-child(7n + 1) {
 		grid-column: auto/span 2;
-		grid-row: auto/span 3;
-	} */
+		grid-row: auto/span 2;
+	}
 
 	.created__date {
 		font-size: 11px;
 		font-style: italic;
 		color: gray;
 		margin-top: 6px;
+	}
+
+	@media (max-width: 430px) {
+		&:nth-child(7n + 1) {
+			grid-column: auto/span 1;
+			grid-row: auto/span 1;
+		}
 	}
 `;
 
@@ -119,4 +127,5 @@ const Author = styled.div`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	color: ${({ theme }) => theme.cardsTitleColor};
 `;

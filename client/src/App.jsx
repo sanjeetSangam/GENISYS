@@ -23,9 +23,12 @@ const Container = styled.div`
 
 const App = () => {
 	const [actionInitiated, setActionInitiated] = useState(false);
+	const [themeMode, setThemeMode] = useState(darkTheme);
 	return (
-		<BasicContext.Provider value={{ actionInitiated, setActionInitiated }}>
-			<ThemeProvider theme={darkTheme}>
+		<BasicContext.Provider
+			value={{ actionInitiated, setActionInitiated, themeMode, setThemeMode }}
+		>
+			<ThemeProvider theme={themeMode}>
 				<BrowserRouter>
 					<Container>
 						<Navbar />
@@ -34,7 +37,14 @@ const App = () => {
 								<Suspense
 									fallback={
 										<div className="loader__class">
-											<Loader type="bubble-loop" size={100} />
+											<Loader
+												type="bubble-loop"
+												bgColor={"red"}
+												color={"red"}
+												title-color="red"
+												loader-color="red"
+												size={100}
+											/>
 										</div>
 									}
 								>
