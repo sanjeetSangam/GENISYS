@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ImageCard, SearchBar } from "../components";
 import styled from "styled-components";
 import axios from "axios";
@@ -56,6 +56,8 @@ const Home = () => {
 			const { data } = await axios.get(getPosts, {
 				params: params,
 			});
+
+			setInitialLoadingMsg("Please wait...");
 			return data;
 		} catch (error) {
 			console.log(error.message);
@@ -81,13 +83,6 @@ const Home = () => {
 	useEffect(() => {
 		// inserrecords();
 		fetchData();
-		setTimeout(() => {
-			if (loading) {
-				setInitialLoadingMsg(
-					"Server is sleeping, now it will take some time to wake up..."
-				);
-			}
-		}, 5000);
 	}, []);
 
 	useEffect(() => {
@@ -97,6 +92,16 @@ const Home = () => {
 		}, 500);
 		return () => clearTimeout(getData);
 	}, [searchText]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			if (loading) {
+				setInitialLoadingMsg(
+					"Server is sleeping, now it will take some time to wake up..."
+				);
+			}
+		}, 5000);
+	}, [loading]);
 
 	return (
 		<Container id="scrollableDiv">

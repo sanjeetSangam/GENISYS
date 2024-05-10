@@ -1,5 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./rootReducer";
-import thunk from "redux-thunk";
+import postReducer from "./slice/post";
 
-const store = configureStore({ rootReducer });
+const store = configureStore({
+	reducer: {
+		post: postReducer,
+	},
+});
+
+export default store;
